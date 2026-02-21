@@ -137,6 +137,40 @@ export default function TasksPage() {
             No tasks yet. Add one above!
           </p>
         )}
+
+        {/* Contextual feedback nudge — appears after completing at least one task */}
+        {completed > 0 && (
+          <div className="mt-8 p-4 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20">
+            <p className="text-sm text-blue-700 dark:text-blue-300">
+              Nice work completing {completed} {completed === 1 ? 'task' : 'tasks'}!
+              Have thoughts on how the task manager could be better?{' '}
+              <button
+                onClick={() => {
+                  // Open the global feedback widget
+                  const trigger = document.querySelector('[data-feedback-trigger]') as HTMLElement
+                  if (trigger) {
+                    trigger.click()
+                  } else {
+                    // Fallback: find the feedback panel trigger bar
+                    const bar = document.querySelector('.feedback-panel button, .feedback-trigger') as HTMLElement
+                    bar?.click()
+                  }
+                }}
+                className="font-medium underline hover:text-blue-800 dark:hover:text-blue-200"
+              >
+                Share feedback
+              </button>
+            </p>
+          </div>
+        )}
+
+        {/* Stats footer */}
+        {total > 0 && (
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+            <span>{total} {total === 1 ? 'task' : 'tasks'} total</span>
+            <span>{Math.round((completed / total) * 100)}% complete</span>
+          </div>
+        )}
       </main>
     </div>
   )
