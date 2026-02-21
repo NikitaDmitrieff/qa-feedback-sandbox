@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .ts,.tsx --no-error-on-unmatched-pattern"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.46",
@@ -23,6 +23,7 @@
     "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
     "eslint": "^9.0.0",
