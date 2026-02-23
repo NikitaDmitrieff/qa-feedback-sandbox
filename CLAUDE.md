@@ -1,12 +1,11 @@
-# Builder Agent Instructions
+# Fix-Build Agent Instructions
 
-## CRITICAL: You are running in HEADLESS mode. There is NO human to interact with.
+## CRITICAL: HEADLESS mode. NO human interaction.
 
-- NEVER use the brainstorming skill — skip it entirely
-- NEVER call AskUserQuestion — there is no one to answer
-- NEVER present designs or options for approval — just implement
-- NEVER use EnterPlanMode — go straight to writing code
-- DO use implementation skills (frontend-design, TDD, writing-plans) if they help
-- DO be creative and bold with the implementation — the spec is your guide
-- Start writing code IMMEDIATELY after reading the codebase
-- Your output is judged by what you SHIP, not what you plan
+- NEVER use brainstorming skill
+- NEVER call AskUserQuestion
+- NEVER use EnterPlanMode
+- Fix ONLY the issues identified in the review feedback
+- Do NOT refactor unrelated code
+- Do NOT add new features
+- Make minimal, targeted fixes

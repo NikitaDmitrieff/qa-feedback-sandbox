@@ -11,9 +11,9 @@ export interface DesignColors {
 export function useDesignTokenColors(): DesignColors {
   const [colors, setColors] = useState<DesignColors>({ primary: [], grays: [], accent: null })
 
-  // CSS custom properties require DOM access; must read via a timer callback, not synchronously.
+  // CSS custom properties require DOM access; use rAF to ensure styles are computed before reading.
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const rafId = requestAnimationFrame(() => {
       const style = getComputedStyle(document.documentElement)
       const primary = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map(w =>
         style.getPropertyValue(`--color-primary-${w}`).trim()
@@ -23,8 +23,8 @@ export function useDesignTokenColors(): DesignColors {
       )
       const accent = style.getPropertyValue('--color-info').trim() || null
       setColors({ primary, grays, accent })
-    }, 0)
-    return () => clearTimeout(timer)
+    })
+    return () => cancelAnimationFrame(rafId)
   }, [])
 
   return colors
