@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Design System — Module Classes
+   CSS custom properties are defined in globals.css (imported globally).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Base / Body
+   -------------------------------------------------------------------------- */
+.body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  margin: 0;
+  padding: var(--spacing-8);
+  max-width: var(--max-width-content);
+  margin-inline: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   Semantic HTML Base Styles
+   -------------------------------------------------------------------------- */
+.body h1,
+.body h2,
+.body h3,
+.body h4,
+.body h5,
+.body h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  margin-top: 0;
+  margin-bottom: var(--spacing-4);
+}
+
+.body h1 { font-size: var(--font-size-4xl); }
+.body h2 { font-size: var(--font-size-3xl); }
+.body h3 { font-size: var(--font-size-2xl); }
+.body h4 { font-size: var(--font-size-xl); }
+.body h5 { font-size: var(--font-size-lg); }
+.body h6 { font-size: var(--font-size-base); }
+
+.body p {
+  margin-top: 0;
+  margin-bottom: var(--spacing-4);
+  color: var(--color-text);
+}
+
+.body a {
+  color: var(--color-primary-600);
+  text-decoration: underline;
+}
+
+.body a:hover {
+  color: var(--color-primary-700);
+}
+
+.body ul,
+.body ol {
+  margin-top: 0;
+  margin-bottom: var(--spacing-4);
+  padding-left: var(--spacing-6);
+}
+
+.body li {
+  margin-bottom: var(--spacing-1);
+}
+
+.body code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  background-color: var(--color-gray-100);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.body pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-100);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin-bottom: var(--spacing-4);
+}
+
+.body pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.body footer {
+  margin-top: var(--spacing-8);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Utility Classes — Flex
+   -------------------------------------------------------------------------- */
+.flex { display: flex; }
+.flexInline { display: inline-flex; }
+.flexRow { flex-direction: row; }
+.flexCol { flex-direction: column; }
+.flexWrap { flex-wrap: wrap; }
+.flexNowrap { flex-wrap: nowrap; }
+.itemsStart { align-items: flex-start; }
+.itemsCenter { align-items: center; }
+.itemsEnd { align-items: flex-end; }
+.justifyStart { justify-content: flex-start; }
+.justifyCenter { justify-content: center; }
+.justifyEnd { justify-content: flex-end; }
+.justifyBetween { justify-content: space-between; }
+.gap1 { gap: var(--spacing-1); }
+.gap2 { gap: var(--spacing-2); }
+.gap4 { gap: var(--spacing-4); }
+.gap6 { gap: var(--spacing-6); }
+.gap8 { gap: var(--spacing-8); }
+
+/* --------------------------------------------------------------------------
+   Utility Classes — Grid
+   -------------------------------------------------------------------------- */
+.grid { display: grid; }
+.gridCols1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.gridCols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gridCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gridCols4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* --------------------------------------------------------------------------
+   Utility Classes — Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+/* Small (640px+) */
+@media (min-width: 640px) {
+  .smGridCols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .smGridCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Medium (768px+) */
+@media (min-width: 768px) {
+  .mdGridCols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mdGridCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mdGridCols4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Large (1024px+) */
+@media (min-width: 1024px) {
+  .lgGridCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lgGridCols4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

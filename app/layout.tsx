@@ -1,4 +1,8 @@
-export const metadata = {
+import type { Metadata } from 'next'
+import './styles/globals.css'
+import styles from './styles/globals.module.css'
+
+export const metadata: Metadata = {
   title: 'Minions Smoke Test',
   description: 'Minimal Next.js app for minions pipeline testing',
 }
@@ -6,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: 'system-ui, sans-serif', margin: 0, padding: '2rem', maxWidth: 600, marginInline: 'auto' }}>
+      <body className={styles.body}>
         {children}
       </body>
     </html>
