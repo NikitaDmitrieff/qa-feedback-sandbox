@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: '/design-system', label: 'Design System' },
   { href: '/components-showcase', label: 'Components' },
   { href: '/design-audit', label: 'Design Audit' },
+  { href: '/brand-kit', label: 'Brand Kit' },
 ]
 
 export function Sidebar() {
