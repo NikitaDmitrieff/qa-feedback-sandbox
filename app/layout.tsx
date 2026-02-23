@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './styles/globals.css'
 import styles from './styles/globals.module.css'
+import layoutStyles from './layout.module.css'
+import { Sidebar } from './components/Sidebar'
 
 export const metadata: Metadata = {
   title: 'Minions Smoke Test',
@@ -11,7 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={styles.body}>
-        {children}
+        <div className={layoutStyles.appLayout}>
+          <Sidebar />
+          <div className={layoutStyles.pageContent}>
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   )

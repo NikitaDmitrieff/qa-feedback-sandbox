@@ -1,0 +1,53 @@
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background-color: var(--color-gray-900);
+  padding: var(--spacing-6) var(--spacing-4);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-400);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-4);
+  border-bottom: 1px solid var(--color-gray-700);
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.navLink {
+  display: block;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-400);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+}
+
+.navLink:hover {
+  background-color: var(--color-gray-800);
+  color: var(--color-gray-50);
+}
+
+.navLink[aria-current='page'] {
+  background-color: var(--color-primary-700);
+  color: #ffffff;
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
