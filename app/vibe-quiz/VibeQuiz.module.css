@@ -1,0 +1,519 @@
+/* ─── Keyframes ─────────────────────────────────────────────────────────────── */
+
+@keyframes slideIn {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes blurToClear {
+  from {
+    filter: blur(14px);
+    opacity: 0;
+    letter-spacing: 0.15em;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    letter-spacing: -0.02em;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes progressFill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ─── Quiz Shell ─────────────────────────────────────────────────────────────── */
+
+.quiz {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--quiz-bg, #0c0b0a);
+  transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 3rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  gap: 2.5rem;
+}
+
+.quiz::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.wordmark {
+  position: absolute;
+  top: 1.75rem;
+  left: 2rem;
+  font-family: ui-monospace, SFMono-Regular, 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.22);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* ─── Slide ──────────────────────────────────────────────────────────────────── */
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  animation: slideIn 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+  max-width: 720px;
+  width: 100%;
+}
+
+/* ─── Question ───────────────────────────────────────────────────────────────── */
+
+.questionMeta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.questionNumber {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.08);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.questionCount {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.1em;
+}
+
+.questionText {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  line-height: 1.3;
+  margin: 0;
+  max-width: 520px;
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Answers Grid ───────────────────────────────────────────────────────────── */
+
+.answersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* ─── Answer Card ────────────────────────────────────────────────────────────── */
+
+.answerCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  border-radius: 12px;
+  overflow: hidden;
+  outline: none;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.answerCard:hover {
+  transform: scale(1.03) translateY(-2px);
+  box-shadow:
+    0 0 0 2px var(--card-glow, rgba(255, 255, 255, 0.3)),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.answerCard:focus-visible {
+  box-shadow: 0 0 0 2px #ffffff80, 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.mockupWrapper {
+  width: 200px;
+  height: 140px;
+  overflow: hidden;
+  background: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.answerLabel {
+  padding: 10px 12px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  backdrop-filter: blur(8px);
+}
+
+.answerLabelMain {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.answerLabelSub {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0;
+}
+
+/* ─── Progress Bar ───────────────────────────────────────────────────────────── */
+
+.progressTrack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 3px;
+  gap: 2px;
+}
+
+.progressSegment {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.4s ease;
+}
+
+.progressDone {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.progressActive {
+  background: rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.progressActive::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.4);
+  transform-origin: left;
+  animation: progressFill 0.4s ease both;
+}
+
+/* ─── Result ─────────────────────────────────────────────────────────────────── */
+
+.resultWrapper {
+  min-height: 100%;
+  background-color: var(--vibe-bg, #ffffff);
+  transition: background-color 0.6s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 2rem 4rem;
+  animation: fadeIn 0.5s ease both;
+}
+
+.resultInner {
+  max-width: 680px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.archetypeBadge {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vibe-text-muted);
+  background: transparent;
+  border: 1px solid var(--vibe-border);
+  border-radius: var(--vibe-radius, 4px);
+  padding: 4px 12px;
+  animation: fadeUp 0.4s 0.1s ease both;
+}
+
+.revealTitle {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: var(--vibe-font-weight-display, 700);
+  color: var(--vibe-text);
+  text-align: center;
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-family: Georgia, 'Times New Roman', serif;
+  animation: blurToClear 0.8s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: var(--vibe-text-muted);
+  text-align: center;
+  margin: 0;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  animation: fadeUp 0.5s 0.35s ease both;
+}
+
+/* ─── Specimen ───────────────────────────────────────────────────────────────── */
+
+.specimenPreview {
+  width: 100%;
+  background: var(--vibe-surface);
+  border: 1px solid var(--vibe-border);
+  border-radius: var(--vibe-radius-lg, 12px);
+  padding: calc(var(--vibe-spacing, 1rem) * 1.5);
+  box-shadow: var(--vibe-shadow);
+  animation: fadeUp 0.5s 0.5s ease both;
+}
+
+.specimenGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.specimenItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.specimenLabel {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vibe-text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin-bottom: 0.25rem;
+}
+
+.specimenButton {
+  display: block;
+  width: 100%;
+  background: var(--vibe-primary);
+  color: var(--vibe-primary-text, #ffffff);
+  border: none;
+  border-radius: var(--vibe-radius, 6px);
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: var(--vibe-font-weight-display, 600);
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  box-shadow: var(--vibe-shadow);
+  margin-bottom: 6px;
+}
+
+.specimenButtonOutline {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: var(--vibe-primary);
+  border: 1px solid var(--vibe-primary);
+  border-radius: var(--vibe-radius, 6px);
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: var(--vibe-font-weight-body, 400);
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+}
+
+.specimenCard {
+  background: var(--vibe-bg);
+  border: 1px solid var(--vibe-border);
+  border-radius: var(--vibe-radius, 6px);
+  padding: calc(var(--vibe-spacing, 1rem) * 0.8);
+  box-shadow: var(--vibe-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.specimenCardHeading {
+  font-size: 0.85rem;
+  font-weight: var(--vibe-font-weight-display, 600);
+  color: var(--vibe-text);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.specimenCardBody {
+  font-size: 0.7rem;
+  color: var(--vibe-text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: var(--vibe-font-weight-body, 400);
+}
+
+.specimenBadge {
+  display: inline-block;
+  background: var(--vibe-accent);
+  color: #ffffff;
+  border-radius: var(--vibe-radius-lg, 12px);
+  padding: 2px 8px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.04em;
+  margin-top: 0.25rem;
+}
+
+.specimenInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.specimenInputLabel {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--vibe-text);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.specimenInput {
+  background: var(--vibe-bg);
+  border: 1px solid var(--vibe-border);
+  border-radius: var(--vibe-radius, 6px);
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  color: var(--vibe-text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.specimenInput::placeholder {
+  color: var(--vibe-text-muted);
+  opacity: 0.7;
+}
+
+/* ─── Palette Strip ──────────────────────────────────────────────────────────── */
+
+.paletteStrip {
+  display: flex;
+  width: 100%;
+  border-radius: var(--vibe-radius, 6px);
+  overflow: hidden;
+  height: 36px;
+  animation: fadeUp 0.5s 0.65s ease both;
+  box-shadow: var(--vibe-shadow);
+}
+
+.paletteSwatch {
+  flex: 1;
+  height: 100%;
+  transition: flex 0.2s ease;
+}
+
+.paletteSwatch:hover {
+  flex: 2;
+}
+
+/* ─── Result Actions ─────────────────────────────────────────────────────────── */
+
+.resultActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.5s 0.8s ease both;
+}
+
+.actionPrimary {
+  background: var(--vibe-text);
+  color: var(--vibe-bg);
+  border: none;
+  border-radius: var(--vibe-radius, 6px);
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.actionPrimary:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.actionSecondary {
+  background: var(--vibe-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--vibe-radius, 6px);
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  box-shadow: var(--vibe-shadow);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.actionSecondary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.actionGhost {
+  background: transparent;
+  color: var(--vibe-text-muted);
+  border: 1px solid var(--vibe-border);
+  border-radius: var(--vibe-radius, 6px);
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.actionGhost:hover {
+  color: var(--vibe-text);
+  border-color: var(--vibe-text);
+}
