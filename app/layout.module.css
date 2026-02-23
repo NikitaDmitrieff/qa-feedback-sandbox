@@ -1,0 +1,10 @@
+.appLayout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.pageContent {
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-8);
+}
