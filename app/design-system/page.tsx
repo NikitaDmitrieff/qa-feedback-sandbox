@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import { ColorSwatch, type ColorToken } from '@/app/components/ColorSwatch'
+import { ContrastChecker } from '@/app/components/ContrastChecker'
+import { DownloadTokensButton } from '@/app/components/DownloadTokensButton'
 import pageStyles from './page.module.css'
 
 export const metadata: Metadata = {
@@ -6,39 +9,9 @@ export const metadata: Metadata = {
   description: 'Design tokens, color palette, typography, spacing, and component patterns',
 }
 
-/* ---------- helpers ---------- */
-
-function hexToRgb(hex: string): string {
-  const r = parseInt(hex.slice(1, 3), 16)
-  const g = parseInt(hex.slice(3, 5), 16)
-  const b = parseInt(hex.slice(5, 7), 16)
-  return `rgb(${r}, ${g}, ${b})`
-}
-
-function relativeLuminance(hex: string): number {
-  const toLinear = (c: number) => {
-    const s = c / 255
-    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4)
-  }
-  const r = toLinear(parseInt(hex.slice(1, 3), 16))
-  const g = toLinear(parseInt(hex.slice(3, 5), 16))
-  const b = toLinear(parseInt(hex.slice(5, 7), 16))
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b
-}
-
-function contrastRatio(fg: string, bg: string): string {
-  const l1 = relativeLuminance(fg)
-  const l2 = relativeLuminance(bg)
-  const lighter = Math.max(l1, l2)
-  const darker = Math.min(l1, l2)
-  return ((lighter + 0.05) / (darker + 0.05)).toFixed(2)
-}
-
 /* ---------- data ---------- */
 
-type ColorSwatch = { name: string; token: string; hex: string }
-
-const primaryColors: ColorSwatch[] = [
+const primaryColors: ColorToken[] = [
   { name: '50', token: '--color-primary-50', hex: '#eff6ff' },
   { name: '100', token: '--color-primary-100', hex: '#dbeafe' },
   { name: '200', token: '--color-primary-200', hex: '#bfdbfe' },
@@ -51,7 +24,7 @@ const primaryColors: ColorSwatch[] = [
   { name: '900', token: '--color-primary-900', hex: '#1e3a8a' },
 ]
 
-const grayColors: ColorSwatch[] = [
+const grayColors: ColorToken[] = [
   { name: '50', token: '--color-gray-50', hex: '#f9fafb' },
   { name: '100', token: '--color-gray-100', hex: '#f3f4f6' },
   { name: '200', token: '--color-gray-200', hex: '#e5e7eb' },
@@ -64,12 +37,14 @@ const grayColors: ColorSwatch[] = [
   { name: '900', token: '--color-gray-900', hex: '#111827' },
 ]
 
-const semanticColors: ColorSwatch[] = [
+const semanticColors: ColorToken[] = [
   { name: 'Success', token: '--color-success', hex: '#16a34a' },
   { name: 'Warning', token: '--color-warning', hex: '#d97706' },
   { name: 'Error', token: '--color-error', hex: '#dc2626' },
   { name: 'Info', token: '--color-info', hex: '#0284c7' },
 ]
+
+const allPaletteColors: ColorToken[] = [...primaryColors, ...grayColors, ...semanticColors]
 
 const fontSizes = [
   { name: 'xs', token: '--font-size-xs', value: '0.75rem', px: '12px', sample: 'Extra small' },
@@ -110,7 +85,21 @@ const spacingScale = [
   { token: '--spacing-16', value: '4rem', px: '64px' },
 ]
 
-/* ---------- components ---------- */
+const designTokensJson = {
+  colors: {
+    primary: Object.fromEntries(primaryColors.map((c) => [c.name, c.hex])),
+    gray: Object.fromEntries(grayColors.map((c) => [c.name, c.hex])),
+    semantic: Object.fromEntries(semanticColors.map((c) => [c.name.toLowerCase(), c.hex])),
+  },
+  typography: {
+    fontSizes: Object.fromEntries(fontSizes.map((f) => [f.name, f.value])),
+    fontWeights: Object.fromEntries(fontWeights.map((f) => [f.name.toLowerCase(), f.value])),
+    lineHeights: Object.fromEntries(lineHeights.map((l) => [l.name, l.value])),
+  },
+  spacing: Object.fromEntries(spacingScale.map((s) => [s.token, s.value])),
+}
+
+/* ---------- sub-components ---------- */
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -121,33 +110,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
-function SwatchGrid({ swatches }: { swatches: ColorSwatch[] }) {
+function SwatchGrid({ swatches }: { swatches: ColorToken[] }) {
   return (
     <div className={pageStyles.swatchGrid}>
-      {swatches.map((s) => {
-        const onWhite = contrastRatio(s.hex, '#ffffff')
-        const onBlack = contrastRatio(s.hex, '#000000')
-        const textColor = parseFloat(onWhite) >= 4.5 ? '#ffffff' : '#111827'
-        return (
-          <div key={s.token} className={pageStyles.swatch}>
-            <div
-              className={pageStyles.swatchColor}
-              style={{ backgroundColor: s.hex, color: textColor }}
-            >
-              {s.name}
-            </div>
-            <div className={pageStyles.swatchMeta}>
-              <code className={pageStyles.code}>{s.token}</code>
-              <span className={pageStyles.swatchHex}>{s.hex}</span>
-              <span className={pageStyles.swatchRgb}>{hexToRgb(s.hex)}</span>
-              <span className={pageStyles.contrastRow}>
-                <span title="Contrast vs white">◻ {onWhite}:1</span>
-                <span title="Contrast vs black">◼ {onBlack}:1</span>
-              </span>
-            </div>
-          </div>
-        )
-      })}
+      {swatches.map((s) => (
+        <ColorSwatch key={s.token} swatch={s} />
+      ))}
     </div>
   )
 }
@@ -158,7 +126,10 @@ export default function DesignSystemPage() {
   return (
     <main className={pageStyles.main}>
       <header className={pageStyles.header}>
-        <h1 className={pageStyles.pageTitle}>Design System</h1>
+        <div className={pageStyles.headerTop}>
+          <h1 className={pageStyles.pageTitle}>Design System</h1>
+          <DownloadTokensButton tokens={designTokensJson} />
+        </div>
         <p className={pageStyles.pageSubtitle}>
           All design tokens are defined in{' '}
           <code className={pageStyles.code}>app/styles/globals.module.css</code>. See{' '}
@@ -183,6 +154,14 @@ color: var(--color-primary-600);
 background-color: var(--color-surface);
 border-color: var(--color-border);`}</pre>
         </div>
+      </Section>
+
+      {/* ---- Contrast Checker ---- */}
+      <Section title="WCAG Contrast Checker">
+        <p className={pageStyles.bodyText}>
+          Select any two colors from the palette to check WCAG AA and AAA compliance in real time.
+        </p>
+        <ContrastChecker colors={allPaletteColors} />
       </Section>
 
       {/* ---- Typography ---- */}
@@ -354,6 +333,70 @@ gap: var(--spacing-2);`}</pre>
 }
 .inputError { border-color: var(--color-error); }`}</pre>
         </div>
+
+        {/* Do / Don't: Footer styling */}
+        <h3 className={pageStyles.subsectionTitle}>Correct vs. Incorrect Usage</h3>
+        <div className={pageStyles.dosDonts}>
+          <div className={pageStyles.doBlock}>
+            <div className={pageStyles.doLabel}>✓ Do — Use CSS Modules for footer</div>
+            <footer className={pageStyles.footerExample}>
+              Footer styled via <code className={pageStyles.code}>.footer</code> class in .module.css
+            </footer>
+            <div className={pageStyles.codeBlock}>
+              <pre>{`/* page.module.css */
+.footer {
+  margin-top: var(--spacing-8);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* component.tsx */
+<footer className={styles.footer}>…</footer>`}</pre>
+            </div>
+          </div>
+
+          <div className={pageStyles.dontBlock}>
+            <div className={pageStyles.dontLabel}>✗ Don&apos;t — Inline styles bypass the design system</div>
+            <footer style={{ color: '#999', fontSize: '13px', marginTop: '20px' }}>
+              Footer with hardcoded inline styles
+            </footer>
+            <div className={pageStyles.codeBlock}>
+              <pre>{`/* ✗ Avoid */
+<footer style={{ color: '#999', fontSize: '13px' }}>
+  …
+</footer>`}</pre>
+            </div>
+          </div>
+        </div>
+
+        {/* Do / Don't: Image alt text */}
+        <div className={pageStyles.dosDonts}>
+          <div className={pageStyles.doBlock}>
+            <div className={pageStyles.doLabel}>✓ Do — Always provide descriptive alt text</div>
+            <div className={pageStyles.imgPlaceholder} role="img" aria-label="A blue placeholder image representing correct alt text usage">
+              <span>img alt=&quot;A blue placeholder…&quot;</span>
+            </div>
+            <div className={pageStyles.codeBlock}>
+              <pre>{`<img
+  src="/hero.png"
+  alt="Dashboard showing monthly sales chart"
+/>`}</pre>
+            </div>
+          </div>
+
+          <div className={pageStyles.dontBlock}>
+            <div className={pageStyles.dontLabel}>✗ Don&apos;t — Empty or missing alt leaves screen readers blind</div>
+            <div className={pageStyles.imgPlaceholderBad} role="img" aria-label="placeholder">
+              <span>img alt=&quot;&quot; (empty)</span>
+            </div>
+            <div className={pageStyles.codeBlock}>
+              <pre>{`{/* ✗ Avoid */}
+<img src="/hero.png" alt="" />
+<img src="/hero.png" />`}</pre>
+            </div>
+          </div>
+        </div>
+
       </Section>
     </main>
   )
