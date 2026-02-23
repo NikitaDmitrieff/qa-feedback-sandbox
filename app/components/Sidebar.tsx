@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: '/components-showcase', label: 'Components' },
   { href: '/design-audit', label: 'Design Audit' },
   { href: '/brand-kit', label: 'Brand Kit' },
+  { href: '/motion', label: 'Motion' },
 ]
 
 export function Sidebar() {
