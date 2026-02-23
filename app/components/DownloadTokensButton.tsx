@@ -29,7 +29,7 @@ export function DownloadTokensButton({ tokens }: DownloadTokensButtonProps) {
   }
 
   return (
-    <button className={styles.btn} onClick={handleDownload}>
+    <button type="button" className={styles.btn} onClick={handleDownload}>
       Download Design Token JSON
     </button>
   )
