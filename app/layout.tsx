@@ -1,18 +1,29 @@
 import type { Metadata } from 'next'
+import { Bebas_Neue, JetBrains_Mono } from 'next/font/google'
 import './styles/globals.css'
-import styles from './styles/globals.module.css'
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: 'Minions Smoke Test',
-  description: 'Minimal Next.js app for minions pipeline testing',
+  title: 'MINIONS — Autonomous Code Generation',
+  description: 'A website written, reviewed, and deployed entirely by AI agents. No humans were involved in the making of this page.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={styles.body}>
-        {children}
-      </body>
+    <html lang="en" className={`${bebasNeue.variable} ${jetbrainsMono.variable}`}>
+      <body>{children}</body>
     </html>
   )
 }
