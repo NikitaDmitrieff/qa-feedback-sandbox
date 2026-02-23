@@ -20,7 +20,7 @@ export function ColorSwatch({ swatch }: ColorSwatchProps) {
     <div className={styles.swatch}>
       <div
         className={styles.swatchColor}
-        style={{ backgroundColor: swatch.hex, color: textColor }}
+        style={{ '--swatch-bg': swatch.hex, '--swatch-text': textColor } as React.CSSProperties}
       >
         {swatch.name}
       </div>

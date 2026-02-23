@@ -11,6 +11,8 @@
   padding: var(--spacing-2);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
+  background-color: var(--swatch-bg);
+  color: var(--swatch-text);
 }
 
 .swatchMeta {

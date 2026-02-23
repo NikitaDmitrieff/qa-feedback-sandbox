@@ -1,3 +1,5 @@
+import styles from './page.module.css'
+
 export default function Home() {
   return (
     <main>
@@ -9,7 +11,7 @@ export default function Home() {
         <li>Builder implements them in PRs</li>
         <li>Reviewer checks the code</li>
       </ul>
-      <footer style={{ marginTop: '2rem', color: '#888', fontSize: '0.875rem' }}>
+      <footer className={styles.footer}>
         <p>Version 0.1.0</p>
       </footer>
     </main>

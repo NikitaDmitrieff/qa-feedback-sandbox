@@ -48,12 +48,15 @@
   height: 32px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
+  background-color: var(--preview-color);
 }
 
 .preview {
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   border: 1px solid var(--color-border);
+  background-color: var(--preview-bg);
+  color: var(--preview-fg);
 }
 
 .previewText {

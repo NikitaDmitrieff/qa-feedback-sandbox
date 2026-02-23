@@ -51,7 +51,7 @@ export function ContrastChecker({ colors }: ContrastCheckerProps) {
               </option>
             ))}
           </select>
-          <div className={styles.colorPreview} style={{ backgroundColor: fgHex }} aria-hidden="true" />
+          <div className={styles.colorPreview} style={{ '--preview-color': fgHex } as React.CSSProperties} aria-hidden="true" />
         </div>
 
         <div className={styles.colorPicker}>
@@ -68,11 +68,11 @@ export function ContrastChecker({ colors }: ContrastCheckerProps) {
               </option>
             ))}
           </select>
-          <div className={styles.colorPreview} style={{ backgroundColor: bgHex }} aria-hidden="true" />
+          <div className={styles.colorPreview} style={{ '--preview-color': bgHex } as React.CSSProperties} aria-hidden="true" />
         </div>
       </div>
 
-      <div className={styles.preview} style={{ backgroundColor: bgHex, color: fgHex }}>
+      <div className={styles.preview} style={{ '--preview-bg': bgHex, '--preview-fg': fgHex } as React.CSSProperties}>
         <p className={styles.previewText}>Aa — Sample text preview</p>
         <p className={styles.previewSmall}>Normal body text at 16px</p>
       </div>
