@@ -1,8 +1,19 @@
+import styles from './page.module.css'
+
 export default function Home() {
   return (
     <main>
-      <h1>QA Sandbox</h1>
-      <p>This app is used for automated pipeline testing.</p>
+      <h1>Minions Smoke Test</h1>
+      <p>A minimal Next.js site used to test the minions autonomous pipeline.</p>
+      <ul>
+        <li>Scout analyzes this repo for findings</li>
+        <li>Strategist proposes improvements</li>
+        <li>Builder implements them in PRs</li>
+        <li>Reviewer checks the code</li>
+      </ul>
+      <footer className={styles.footer}>
+        <p>Version 0.1.0</p>
+      </footer>
     </main>
   )
 }

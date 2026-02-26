@@ -1,0 +1,125 @@
+.checker {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  background-color: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-width: 600px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 640px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+.colorPicker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.select {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  cursor: pointer;
+}
+
+.colorPreview {
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--preview-color);
+}
+
+.preview {
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-border);
+  background-color: var(--preview-bg);
+  color: var(--preview-fg);
+}
+
+.previewText {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.previewSmall {
+  font-size: var(--font-size-base);
+  margin: 0;
+}
+
+.ratioDisplay {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+}
+
+.ratioValue {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  font-family: var(--font-family-mono);
+}
+
+.ratioLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.resultPass,
+.resultFail {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.resultPass {
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.resultFail {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.resultBadge {
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-mono);
+  min-width: 60px;
+}
+
+.resultLabel {
+  color: inherit;
+}
